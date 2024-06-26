@@ -3,6 +3,12 @@ description: "Sets up Python, installs uv, sets up uv cache, and creates and act
 inputs:
   python-version:
     description: "Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset. Passed to setup-python."
+  allow-prereleases:
+    description: "When 'true', a version range passed to 'python-version' input will match prerelease versions if no GA versions are found. Only 'x.y' version range is supported for CPython."
+    default: false
+  architecture:
+    description: "The target architecture (x86, x64) of the Python interpreter."
+    default: 'x64'
   cache:
     description: "If set to 'packages', will cache uv's cache directory. If set to 'venv', will cache the virtual environment. By default, no caching will happen."
   cache-dependency-path:
@@ -31,6 +37,8 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.python-version }}
+        allow-prereleases: ${{ inputs.allow-prereleases }}
+        architecture: ${{ inputs.architecture }}
 
     - name: Set up uv
       id: setup-uv
