@@ -91,6 +91,7 @@ runs:
       if: ${{ !(inputs.cache == 'venv' && steps.setup-venv-cache.outputs.cache-hit == 'true') }}
       shell: bash
       run: |
+        echo "UV_PYTHON=$(which python)" >> $GITHUB_ENV
         uv venv $HOME/.venv
 
     - name: Activate virtual environment (Unix)
