@@ -94,7 +94,7 @@ runs:
       if: ${{ !(inputs.cache == 'venv' && steps.setup-venv-cache.outputs.cache-hit == 'true') }}
       shell: bash
       run: |
-        python_path=${{ runner.os == 'Windows' && steps.venv-dir-windows.outputs.python-path || steps.setup-uv.outputs.python-path }}
+        python_path="${{ runner.os == 'Windows' && steps.venv-dir-windows.outputs.python-path || steps.setup-uv.outputs.python-path }}"
         echo "$python_path"
         uv venv --python "$python_path" $HOME/.venv
 
